@@ -2,18 +2,19 @@
     --primary: #7d5fff;
     --accent: #c56cf0;
     --bg: #0d0221;
-    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-bg: #161b22;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg); /* Garante o fundo escuro */
+    background-color: var(--bg);
     color: #fff;
     min-height: 100vh;
 }
 
+/* Fundo */
 .background-glow {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -22,152 +23,110 @@ body {
 }
 
 header { padding: 40px 20px; text-align: center; }
-
 .titulo-neon { font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
 .titulo-neon span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
 
-/* Filtros */
-.filter-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
+.filter-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+input, select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; outline: none; }
 
-input, select {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: white;
-    outline: none;
-}
-
-/* Grid Corrigido */
+/* Grid */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 25px;
     padding: 20px;
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Card Corrigido */
-/* Altura do card aumentada para caber as novas infos */
+/* Card Profissional */
 .anime-card {
     position: relative;
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.4s;
-    height: 420px; /* Aumentado de 380px */
+    transition: 0.3s;
+    height: 450px; /* Altura garantida */
 }
 
-/* Tag da Produtora (Estúdio) */
-.studio-tag {
-    font-size: 0.65rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
+.anime-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+
+.anime-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
-/* Informações de Datas */
-.date-info {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.65rem;
-    color: #bbb;
-    margin-bottom: 10px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 8px;
-}
-
-.date-info span {
-    margin-bottom: 2px;
-}
-
-.date-info b {
-    color: var(--primary);
-}
-
-/* Ajuste na info para o gradiente cobrir as novas linhas */
+/* INFO - O Segredo está aqui */
 .anime-info {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 20px;
-    background: linear-gradient(transparent, rgba(13, 2, 33, 0.98) 35%);
+    /* Gradiente mais alto e escuro para leitura perfeita */
+    background: linear-gradient(to top, rgba(13, 2, 33, 1) 0%, rgba(13, 2, 33, 0.9) 50%, transparent 100%);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
 }
 
-.anime-info h3 { font-size: 1rem; margin-bottom: 5px; }
+.studio-tag {
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
 
-.genres { display: flex; gap: 5px; margin-bottom: 10px; }
-.genres span { font-size: 0.6rem; background: var(--primary); padding: 2px 6px; border-radius: 4px; }
+.anime-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    color: #fff;
+}
 
-.stats { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px; }
+.genres { display: flex; gap: 6px; margin-bottom: 12px; }
+.genres span { font-size: 0.65rem; background: rgba(125, 95, 255, 0.2); border: 1px solid var(--primary); padding: 2px 8px; border-radius: 4px; color: #d1c4ff; }
 
-/* Status Badge Corrigido */
+.stats { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.stats span { font-size: 0.85rem; font-weight: 500; }
+.nota-valor { color: gold; font-weight: bold; font-size: 1rem; }
+
+/* Datas */
+.date-info {
+    font-size: 0.75rem;
+    color: #9fadbd;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+    margin-bottom: 12px;
+}
+.date-line { display: flex; justify-content: space-between; margin-bottom: 2px; }
+.date-line b { color: var(--primary); font-weight: 500; }
+
+/* Badges */
 .status-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.65rem;
+    top: 12px; right: 12px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
     font-weight: bold;
-    z-index: 5;
+    z-index: 10;
     text-transform: uppercase;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+.COMPLETED { background: #00b894; color: white; }
+.CURRENT { background: #0984e3; color: white; }
+.PLANNING { background: #636e72; color: white; }
 
-/* Selo de Nota 10 */
 .top-score-badge {
     position: absolute;
-    top: 50px; /* Abaixo do status badge */
-    right: 15px;
-    font-size: 1.5rem;
-    filter: drop-shadow(0 0 5px gold);
-    z-index: 5;
-    animation: pulse 2s infinite;
+    top: 50px; right: 12px;
+    font-size: 1.8rem;
+    z-index: 10;
+    filter: drop-shadow(0 0 8px gold);
 }
 
-/* Card Nota 10 ganha uma borda dourada leve */
-.anime-card.nota-10 {
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
-}
-
-.anime-card.nota-10:hover {
-    border-color: gold;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-/* Ajuste nos inputs para ficarem alinhados */
-.filter-container select, .filter-container input {
-    min-width: 150px;
-    cursor: pointer;
-}
-
-.COMPLETED { background: #2ecc71; }
-.CURRENT { background: #3498db; }
-.PLANNING { background: #95a5a6; }
-.DROPPED { background: #e74c3c; }
-
-/* Barra de progresso neon */
-.progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; }
-.progress-bar { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.progress-container { width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; }
+.progress-bar { height: 100%; background: var(--primary); box-shadow: 0 0 10px var(--primary); border-radius: 10px; }
