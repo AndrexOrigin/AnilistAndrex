@@ -16,7 +16,7 @@ function renderizarAnimes(lista) {
 
         card.innerHTML = `
             <div class="status-badge ${entry.status}">${traduzir(entry.status)}</div>
-            ${ehNota10 ? '<div class="top-score-badge">👑</div>' : ''}
+            ${ehNota10 ? '<div class="top-score-badge">⭐</div>' : ''}
             <img src="${anime.coverImage.large}" alt="Capa">
             
             <div class="anime-info">
