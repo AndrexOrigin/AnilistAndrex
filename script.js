@@ -1,4 +1,4 @@
-let todosAnimes = []; // Memória para os filtros funcionar
+let todosAnimes = [];
 
 async function carregarAniList() {
     const usuario = 'AndrexOrigin'; 
@@ -28,18 +28,13 @@ async function carregarAniList() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: query, variables: { name: usuario } })
         });
-
         const data = await response.json();
-        
-        // Organiza todos os animes em uma lista única
         todosAnimes = [];
         data.data.MediaListCollection.lists.forEach(lista => {
             todosAnimes.push(...lista.entries);
         });
-
         renderizarAnimes(todosAnimes);
-
-    } catch (e) { console.error("Erro:", e); }
+    } catch (e) { console.error(e); }
 }
 
 function renderizarAnimes(lista) {
@@ -50,12 +45,16 @@ function renderizarAnimes(lista) {
         const anime = entry.media;
         const porcentagem = anime.episodes ? (entry.progress / anime.episodes) * 100 : 0;
         
+        // Verifica se é nota 10
+        const ehNota10 = entry.score === 10;
+        
         const card = document.createElement('div');
-        card.className = 'anime-card';
-        card.style.animationDelay = `${index * 0.05}s`;
+        card.className = `anime-card ${ehNota10 ? 'nota-10' : ''}`;
+        card.style.animationDelay = `${index * 0.03}s`;
 
         card.innerHTML = `
             <div class="status-badge ${entry.status}">${traduzir(entry.status)}</div>
+            ${ehNota10 ? '<div class="top-score-badge">👑</div>' : ''}
             <img src="${anime.coverImage.large}" alt="Capa">
             <div class="anime-info">
                 <h3>${anime.title.romaji}</h3>
@@ -64,7 +63,7 @@ function renderizarAnimes(lista) {
                 </div>
                 <div class="stats">
                     <span>Ep: ${entry.progress}/${anime.episodes || '?'}</span>
-                    <span>⭐ ${entry.score || 'N/A'}</span>
+                    <span style="${ehNota10 ? 'color: gold; font-weight: bold;' : ''}">⭐ ${entry.score || 'N/A'}</span>
                 </div>
                 <div class="progress-container">
                     <div class="progress-bar" style="width: ${porcentagem}%"></div>
@@ -75,23 +74,44 @@ function renderizarAnimes(lista) {
     });
 }
 
-// Funções de Busca e Filtro
-document.getElementById('search-input').addEventListener('input', (e) => {
-    const busca = e.target.value.toLowerCase();
-    const filtrados = todosAnimes.filter(item => 
-        item.media.title.romaji.toLowerCase().includes(busca)
-    );
-    renderizarAnimes(filtrados);
-});
+// LÓGICA DE FILTRO E ORDENAÇÃO COMBINADOS
+function filtrarEOrdenar() {
+    let resultado = [...todosAnimes];
 
-document.getElementById('status-filter').addEventListener('change', (e) => {
-    const status = e.target.value;
-    const filtrados = status === 'all' ? todosAnimes : todosAnimes.filter(item => item.status === status);
-    renderizarAnimes(filtrados);
-});
+    // 1. Filtro de Busca
+    const busca = document.getElementById('search-input').value.toLowerCase();
+    if (busca) {
+        resultado = resultado.filter(item => 
+            item.media.title.romaji.toLowerCase().includes(busca)
+        );
+    }
+
+    // 2. Filtro de Status
+    const status = document.getElementById('status-filter').value;
+    if (status !== 'all') {
+        resultado = resultado.filter(item => item.status === status);
+    }
+
+    // 3. Ordenação
+    const ordem = document.getElementById('sort-order').value;
+    if (ordem === 'score') {
+        resultado.sort((a, b) => b.score - a.score);
+    } else if (ordem === 'title') {
+        resultado.sort((a, b) => a.media.title.romaji.localeCompare(b.media.title.romaji));
+    } else if (ordem === 'progress') {
+        resultado.sort((a, b) => b.progress - a.progress);
+    }
+
+    renderizarAnimes(resultado);
+}
+
+// Eventos
+document.getElementById('search-input').addEventListener('input', filtrarEOrdenar);
+document.getElementById('status-filter').addEventListener('change', filtrarEOrdenar);
+document.getElementById('sort-order').addEventListener('change', filtrarEOrdenar);
 
 function traduzir(status) {
-    const t = { 'COMPLETED': 'Concluído', 'CURRENT': 'Assistindo', 'PLANNING': 'Planejado', 'DROPPED': 'Dropado' };
+    const t = { 'COMPLETED': 'Concluído', 'CURRENT': 'Assistindo', 'PLANNING': 'Planejado', 'DROPPED': 'Dropado', 'PAUSED': 'Pausado' };
     return t[status] || status;
 }
 
