@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Library | Portfolio</title>
-    <!-- Importando Fonte Moderna -->
+    <title>Anime Vault | AndrexOrigin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,11 +13,21 @@
 
     <header>
         <h1 class="titulo-neon">My Anime <span>Vault</span></h1>
-        <p class="subtitle">Sincronizado com AniList</p>
+        
+        <!-- Barra de Busca e Filtros -->
+        <div class="filter-container">
+            <input type="text" id="search-input" placeholder="Buscar anime...">
+            <select id="status-filter">
+                <option value="all">Todos os Status</option>
+                <option value="COMPLETED">Concluídos</option>
+                <option value="CURRENT">Assistindo</option>
+                <option value="PLANNING">Planejados</option>
+            </select>
+        </div>
     </header>
 
     <main id="anime-container" class="grid-container">
-        <!-- Os cards aparecerão aqui -->
+        <!-- JS vai preencher aqui -->
     </main>
 
     <script src="script.js"></script>
