@@ -42,15 +42,21 @@ async function carregarAniList() {
         // Vamos pegar todos os animes de todas as suas listas
         const todasAsListas = data.data.MediaListCollection.lists;
         
+       // Substitua o seu lista.entries.forEach por este:
+        let delay = 0;
         todasAsListas.forEach(lista => {
             lista.entries.forEach(entry => {
                 const card = document.createElement('div');
                 card.className = 'anime-card';
+                // Adiciona um pequeno atraso na animação de cada card
+                card.style.animationDelay = `${delay}s`;
+                delay += 0.05; 
+
                 card.innerHTML = `
                     <img src="${entry.media.coverImage.large}" alt="${entry.media.title.romaji}">
                     <div class="anime-info">
                         <h3>${entry.media.title.romaji}</h3>
-                        <span class="nota">⭐ Nota: ${entry.score > 0 ? entry.score : 'N/A'}</span>
+                        <span class="nota">⭐ ${entry.score > 0 ? entry.score : 'N/A'}</span>
                     </div>
                 `;
                 container.appendChild(card);
