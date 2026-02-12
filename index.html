@@ -16,14 +16,23 @@
         
         <!-- Barra de Busca e Filtros -->
         <div class="filter-container">
-            <input type="text" id="search-input" placeholder="Buscar anime...">
-            <select id="status-filter">
-                <option value="all">Todos os Status</option>
-                <option value="COMPLETED">Concluídos</option>
-                <option value="CURRENT">Assistindo</option>
-                <option value="PLANNING">Planejados</option>
-            </select>
-        </div>
+    <input type="text" id="search-input" placeholder="Buscar anime...">
+    
+    <select id="status-filter">
+        <option value="all">Todos os Status</option>
+        <option value="COMPLETED">Concluídos</option>
+        <option value="CURRENT">Assistindo</option>
+        <option value="PLANNING">Planejados</option>
+    </select>
+
+    <!-- Novo campo de ordenação -->
+    <select id="sort-order">
+        <option value="default">Ordenar por...</option>
+        <option value="score">Maior Nota</option>
+        <option value="title">Nome (A-Z)</option>
+        <option value="progress">Mais Assistidos</option>
+    </select>
+</div>
     </header>
 
     <main id="anime-container" class="grid-container">
