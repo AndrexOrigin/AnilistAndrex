@@ -107,6 +107,40 @@ input, select {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Selo de Nota 10 */
+.top-score-badge {
+    position: absolute;
+    top: 50px; /* Abaixo do status badge */
+    right: 15px;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 5px gold);
+    z-index: 5;
+    animation: pulse 2s infinite;
+}
+
+/* Card Nota 10 ganha uma borda dourada leve */
+.anime-card.nota-10 {
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+}
+
+.anime-card.nota-10:hover {
+    border-color: gold;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Ajuste nos inputs para ficarem alinhados */
+.filter-container select, .filter-container input {
+    min-width: 150px;
+    cursor: pointer;
+}
+
 .COMPLETED { background: #2ecc71; }
 .CURRENT { background: #3498db; }
 .PLANNING { background: #95a5a6; }
